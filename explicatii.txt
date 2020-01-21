@@ -1,0 +1,62 @@
+graph_based_slam.py este un script gasit pe care urma sa il intelegem si sa il folosim
+js_lunux.py este tot un script gasit pe care l am inteles si adaptat pentru a obtine date de la controler-ul Xbox (telecomanda)
+
+
+
+In folder-ul Car sunt toate script-urile pe care masina le foloseste
+
+Ca sa nu fie incarcate scripturile in care se vor folosi motoarele masinii am realizat urmatoarele:
+
+dcmotors.py:
+                aici sunt declarati toti pinii pentru a controla motoarele masinii
+
+                pentru ambele motoare s-au setat tipul pinilor precum si dicrectia de mers initiala
+                adica in fata iar viteza 0
+
+                pentru a fi cat mai usor lucrul cu motoarele
+                am implementat o functie p care primeste ca si parametru de intrare
+                o valoare intre 0 si 100 aceasta fiind pozitiva sau negativa
+                in funcrie de sens masina va merge in fata (+) sau in spate (-)
+
+                functia se va importa in script-ul in care este nevoie de motoare
+
+
+Servomotor.py:  
+                se declara la fel pinul prin care se transfera datele precum si tipul pinului
+
+                la fel ca la motoare am declarat o functie pentru a vira functia primeste
+                o valoare din intervalul [-1,1] unde:  1 => masina vireaza catre dreapta
+                                                      -1 => masina vireaza catre stanga
+                                                       0 => masina tine 'volanul' dreapt 
+                
+                functia se va importa in script-ul in care este nevoie de Servomotor
+
+
+
+Urmeaza controlul masinii
+
+
+Controlul masinii se face prin Xbox si prin scriptul carXboxV3.py
+fiind a 3 versiune si cea mai buna pe care am putut sa o gasesc
+
+Acest sript seamana aproape leit cu cel de care am mentionat mai sus 
+adica js_lunux.py doar ca m-am folosit doar de axele si butoanele pe care le am vrut
+
+gas => acceleratie
+brake => marsarier
+x => viraj
+
+har0y => schimbatul vitezei de lucru
+
+A => mergi drept pana intalnesti obstacol in fata (folosind task1)
+B => pastreaza distanta fata de peretele din dreapta pana intalnesti obstacol in fata (folosind task2)
+X => task3 explicatiile sunt pe cod
+
+
+task1 defineste o functie run care returneaza 1 cand distanta din fata este mai mica decat dis distanta dorita
+functia face o medie aritmetica a datelor primite deoarece lidarun nu afiseaza fiecare unghi in parte de la 0 grade pana la 359 grade
+
+task2 defineste o functie care la fel ca la task 1 returneaza 1 cand distanta din fata este mai mica decat dis
+dar se foloseste si de unghiurile din dreapta facand tot o medie aritmetica pentru a fi mai rapida primirea datelor
+si interpretandu-le sub forma de viraje
+
